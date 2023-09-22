@@ -5,41 +5,41 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     #region Editor Varaibles
-    [SerializeField] private int m_maxhealth;
-    [SerializeField] private float m_speed;
-    [SerializeField] private float m_damage;
-    [SerializeField] private ParticleSystem m_death; 
-    [SerializeField] private float m_healthpillrate;
-    [SerializeField] private GameObject m_healthpill;
-    [SerializeField] private int m_score;
+    [SerializeField] protected int m_maxhealth;
+    [SerializeField] protected float m_speed;
+    [SerializeField] protected float m_damage;
+    [SerializeField] protected ParticleSystem m_death; 
+    [SerializeField] protected float m_healthpillrate;
+    [SerializeField] protected GameObject m_healthpill;
+    [SerializeField] protected int m_score;
     #endregion
 
     #region Private Variables
-    private float p_health;
+    protected float p_health;
     #endregion
 
     #region Cached Components
-    private Rigidbody cc_rb;
+    protected Rigidbody cc_rb;
     #endregion
 
     #region Cached References
-    private Transform cr_player;
+    protected Transform cr_player;
     #endregion
 
     #region Initialization
-    private void Awake() {
+    protected void Awake() {
         p_health = m_maxhealth;
 
         cc_rb = GetComponent<Rigidbody>();
     }
 
-    private void Start() {
+    protected void Start() {
         cr_player = FindObjectOfType<PlayerController>().transform;
     }
     #endregion
 
     #region Main Updates
-    private void FixedUpdate() {
+    protected virtual void FixedUpdate() {
         Vector3 dir = cr_player.position - transform.position;
         dir.Normalize();
         cc_rb.MovePosition(cc_rb.position + dir * m_speed * Time.fixedDeltaTime);
@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Collision
-    private void OnCollisionStay(Collision collision) {
+    protected void OnCollisionStay(Collision collision) {
         GameObject other = collision.collider.gameObject;
         if (other.CompareTag("Player")) {
             other.GetComponent<PlayerController>().DecreaseHealth(m_damage);

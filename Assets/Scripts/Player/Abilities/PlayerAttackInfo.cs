@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerAttackInfo
@@ -68,6 +69,13 @@ public class PlayerAttackInfo
     public Color AbilityColor {
         get {
             return m_color;
+        }
+    }
+
+    [SerializeField] private Text m_text;
+    public Text AbilityText {
+        get {
+            return m_text;
         }
     }
     #endregion

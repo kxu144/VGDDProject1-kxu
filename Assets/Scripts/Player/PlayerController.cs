@@ -84,6 +84,10 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (attack.Cooldown > 0) {
                 attack.Cooldown -= Time.deltaTime;
+                if (attack.AbilityText != null) {
+                    float cd = Mathf.Round(Mathf.Max(attack.Cooldown, 0.0f) * 10) / 10.0f;
+                    attack.AbilityText.text = cd == 0 ? "0.0" : cd.ToString();
+                }
             }
         }
 
